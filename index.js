@@ -2,6 +2,7 @@ const express = require('express');
 const nodemon = require('nodemon')
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
+require("dotenv").config()
 const cors = require("cors");
 const router = require('./routes/sign-up.routes');
 const app = express();
@@ -16,13 +17,9 @@ app.get('/', (req,res)=>{
 app.use('/signup',router)
 
 
-const username = "sadiqneymaA1"
-const password = 'sadiqneymaA1'
-const dbName = "Employee"
 
-const MongoURL = `mongodb+srv://${username}:${password}@project.rdd2sru.mongodb.net/${dbName}?retryWrites=true&w=majority`
 
-mongoose.connect(MongoURL)
+mongoose.connect(process.env.MONGOURL)
 .then(() => {
     console.log("Successfully Connected to the Database")
 })
@@ -35,9 +32,9 @@ mongoose.connect(MongoURL)
 
 
 
-const PORT = 8000
 
-app.listen(PORT, ()=>{
-    console.log(`This is running on port ${PORT}`)
+
+app.listen(process.env.PORT || 8000, ()=>{
+    console.log(`This is running on port 8080`)
 });
 
