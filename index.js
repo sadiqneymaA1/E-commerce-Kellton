@@ -1,27 +1,20 @@
 const express = require('express');
 const nodemon = require('nodemon')
 const mongoose = require('mongoose');
-const router = require("./routes/user.routes");
 const bodyParser = require("body-parser");
-const cors = require("cors")
+const cors = require("cors");
+const router = require('./routes/sign-up.routes');
 const app = express();
 
-app.use(bodyParser.json())
 
+app.use(bodyParser.json())
 
 app.get('/', (req,res)=>{
     res.send('The E-commerce website')
 });
 
+app.use('/signup',router)
 
-app.use("/user",router)
-
-app.use("/e-commerce", commercerouter)
-
-app.use("/auth",signinRouter)
-app.use("/auth",signupRouter)
-
-app.use("/contact",contactRouter)
 
 const username = "sadiqneymaA1"
 const password = 'sadiqneymaA1'

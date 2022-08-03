@@ -1,45 +1,109 @@
-const CommerceModel = require("../model/e-commerce.model")
+const SignupModel = require('../model/sign-up');
+const SigninModel = require('../model/sign-in');
+const productModel = require('../model/products')
+const contactModel = require('../model/contact')
 
-const create = (req,res) =>{
+const signupCreate = (req, res) =>{
+    SignupModel.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        confirmPassword: req.body.confirmPassword
+        
+    },(err,result) =>{
+        if(err){
+            res.send({
+                message:"Not able to login",
+                eror: err
+            })
+        } 
+        res.send({
+            message: "sign up sucessfully",
+            data:result
+        })
 
-    CommerceModel.create({
+    })
+    
+    
+}
+
+
+const signinCreate = (req, res) =>{
+    SigninModel.create({
+        
+        email: req.body.email,
+        password: req.body.password
+        
+        
+    },(err,result) =>{
+        if(err){
+            res.send({
+                message:"Not able to login",
+                eror: err
+            })
+        } 
+        res.send({
+            message: "sign in sucessfully",
+            data:result
+        })
+
+    })
+    
+    
+}
+
+const productsread = (req, res) =>{
+    productModel.create({
+        
         title: req.body.title,
-        url: req.body.url,
-        id: req.body.id,
-    },(err, result)=>{
+        imageUrl: req.body.imageUrl,
+        id:req.body.id,
+        linkUrl: req.body.linkUrl
+
         
-            if(err){
-                res.send({
-                    message: "Not able to Create User",
-                    error:err
-                })
-            }
+        
+    },(err,result) =>{
+        if(err){
             res.send({
-                message:"succesfully created user",
-                data:result,
+                message:"succefully seen",
+                eror: err
             })
+        } 
+        res.send({
+            message: "sign in sucessfully",
+            data:result
         })
+
+    })
+    
+    
+}
+
+
+const ContactCreate = (req,res)=>{
+
+    
+    contactModel.create({
+
+        name: req.body.name,
+        email: req.body.email,
+        message: req.body.message,
+        
+    },(err,result)=>{
+        if(err){
+            res.send({
+                message:"Not able to send the message",
+                error: err
+            })
+        }
+        res.send({
+            message: "Message sent successfully",
+            data: result
+        })
+    })
 
 }
 
-const read = (req,res) =>{
 
-    CommerceModel.find({
-        
-    },(err, result)=>{
-        
-            if(err){
-                res.send({
-                    message: "Not able to Read",
-                    error:err
-                })
-            }
-            res.send({
-                message:"succesfully created user",
-                data:result,
-            })
-        })
 
-}
-
-module.exports = {create,read}
+module.exports = {signupCreate, signinCreate, productsread, ContactCreate}
